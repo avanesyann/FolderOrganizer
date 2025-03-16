@@ -4,13 +4,13 @@
     {
         static void Main(string[] args)
         {
-
-            string path = @"C:\Users\narek.avanesyan.s\Desktop\Querying Microsoft SQL Server";
+            // Change this to your folder's path
+            string path = @"D:\Tutorials\Udemy - The Complete SQL Bootcamp\1 - Course Introduction";
 
             OrganizeFolder udemy = new OrganizeFolder(path);
 
-            udemy.DisplayFolders();
-            udemy.DisplayFiles();
+            // Moves .vtt files to a new folder
+            udemy.MoveFiles(".vtt", "Subtitles");
         }
     }
 }

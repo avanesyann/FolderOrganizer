@@ -9,9 +9,42 @@ namespace FolderOrganizer
 
         public OrganizeFolder(string path)
         {
-            UserDirectory = new DirectoryInfo(path);
+            if (Directory.Exists(path))
+                UserDirectory = new DirectoryInfo(path);
+            else
+                throw new DirectoryNotFoundException("The directory does not exist.");
         }
 
+        public void MoveFiles(string extension, string folder)
+        {
+            var files = UserDirectory.GetFiles();
+
+            foreach (var file in files)
+            {
+                string directory = CreateDirectory(folder);
+                string newDirectory = Path.Combine(directory, file.Name);
+
+                if (!File.Exists(newDirectory) && file.Extension == extension)
+                {
+                    file.MoveTo(newDirectory);
+                    Console.WriteLine($"File \"{file.Name}\" moved to the new directory.");
+                }
+
+            }
+        }
+
+        public string CreateDirectory(string folder)
+        {
+            string newDirectory = Path.Combine(UserDirectory.FullName, folder);
+            if (!Directory.Exists(newDirectory))
+            {
+                Directory.CreateDirectory(newDirectory);
+
+                Console.WriteLine($"Directory \"{newDirectory}\" created.");
+            }
+
+            return newDirectory;
+        }
         public void DisplayFolders()
         {
             var directories = UserDirectory.GetDirectories().OrderBy(d => ExtractNumbers(d.Name)).ToArray();
@@ -37,10 +70,6 @@ namespace FolderOrganizer
 
             Console.WriteLine();
         }
-
-
-
-
         private int ExtractNumbers(string folderName)
         {
             var match = Regex.Match(folderName, @"\d+");
