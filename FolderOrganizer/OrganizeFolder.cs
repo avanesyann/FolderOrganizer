@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Text.RegularExpressions;
 
 namespace FolderOrganizer
@@ -30,6 +31,47 @@ namespace FolderOrganizer
                     Console.WriteLine($"File \"{file.Name}\" moved to the new directory.");
                 }
 
+            }
+        }
+        public void DeleteFiles(string extension)
+        {
+            var files = UserDirectory.GetFiles();
+
+            foreach (var file in files)
+            {
+                if (file.Extension.Equals($".{extension}", StringComparison.OrdinalIgnoreCase))
+                {
+                    try
+                    {
+                        file.Delete();
+                        Console.WriteLine($"File \"{file.Name}\" was deleted.");
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Failed to delete \"{file.Name}\": {ex.Message}");
+                    }
+                }
+            }
+        }
+        public void CreateFiles(string name)
+        {
+            string newFile = Path.Combine(UserDirectory.FullName, name);
+
+            if (!File.Exists(newFile))
+            {
+                try
+                {
+                    using (File.Create(newFile)) { }
+                    Console.WriteLine($"File \"{name}\" created.");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Failed to create \"{name}\": {ex.Message}");
+                }
+            }
+            else
+            {
+                Console.WriteLine($"File \"{name}\" already exists.");
             }
         }
 
