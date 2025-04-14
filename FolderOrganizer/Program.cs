@@ -4,13 +4,39 @@
     {
         static void Main(string[] args)
         {
-            // Change this to your folder's path
-            string path = @"D:\Tutorials\Udemy - The Complete SQL Bootcamp\1 - Course Introduction";
+            Console.WriteLine("Enter a full directory path (or type 'exit' to quit):");
 
-            OrganizeFolder udemy = new OrganizeFolder(path);
+            while (true)
+            {
+                Console.Write("\nPath: ");
+                string inputPath = Console.ReadLine();
 
-            // Moves .vtt files to a new folder
-            udemy.MoveFiles(".vtt", "Subtitles");
+                if (string.Equals(inputPath, "exit", StringComparison.OrdinalIgnoreCase))
+                {
+                    Console.WriteLine("Exiting program.");
+                    break;
+                }
+
+                try
+                {
+                    OrganizeFolder organizer = new OrganizeFolder(inputPath);
+
+                    Console.WriteLine("Enter the extension to move (e.g., .vtt):");
+                    Console.Write("Extension: ");
+                    string extension = Console.ReadLine();
+
+                    Console.WriteLine("Enter the name of the folder to move files into:");
+                    Console.Write("Folder name: ");
+                    string folderName = Console.ReadLine();
+
+                    organizer.MoveFiles(extension, folderName);
+                    organizer.DisplayFiles();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error: {ex.Message}");
+                }
+            }
         }
     }
 }

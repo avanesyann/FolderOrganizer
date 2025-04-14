@@ -17,9 +17,13 @@ A simple C# console application to organize files by moving subtitle files or an
 - Implemented `MoveFiles()` to move files of a given extension into a subfolder
 - Created `CreateDirectory()` to ensure a subfolder exists before moving files
 
-### :new: Version 0.3
+### :arrows_counterclockwise: Version 0.3
 - Implemented `CreateFiles()` to create a file of a given name.
 - Implemented `DeleteFiles()` to delete files of a given extension.
+
+### :new: Version 0.4
+- Made the program more interactive.
+- Now the user can directly specify the full directory, extension and the folder name to move the files to.
 
 
 ## :bulb: Future Plans
