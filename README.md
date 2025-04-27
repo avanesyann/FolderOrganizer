@@ -25,8 +25,12 @@ A simple C# console application to organize files by moving subtitle files or an
 - Made the program more interactive.
 - Now the user can directly specify the full directory, extension and the folder name to move the files to.
 
+### :new: Version 0.4.1
+- Assign default values to extension and folder names if not mentioned by the user.
+
 
 ## :bulb: Future Plans
+- Affect subdirectories as well.
 - Implement a Console UI.
 - Introduce a GUI version using WinForms
 
